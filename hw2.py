@@ -45,7 +45,7 @@ def load_corpus(corpus_path):
 def is_negation(word):
     if word in negation_words:
         return True
-    if word.endswith("\-n't"):
+    if word.endswith("n't"):
         return True
     return False
 
