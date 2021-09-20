@@ -63,6 +63,8 @@ def tag_negation(snippet):
     negation_meta_tag = "NOT_"
     negationFlag = 0
     for i, words in enumerate(TaggedWords):
+        if words[0] in negation_enders or words[0] in sentence_enders or words[1] == "JJR" or words[1] == "RBR":
+            negationFlag = 0
         if negationFlag == 0:
             result.append(words[0])
         else:
@@ -72,8 +74,7 @@ def tag_negation(snippet):
                 pass
             else:
                 negationFlag = 1
-        if words[0] in negation_enders or words[0] in sentence_enders or words[1] == "JJR" or words[1] == "RBR":
-            negationFlag = 0
+
     return result
 
 
@@ -81,7 +82,12 @@ def tag_negation(snippet):
 # corpus is a list of tuples (snippet, label)
 # Returns a dictionary {word: index}
 def get_feature_dictionary(corpus):
-    pass
+    result = dict()
+    for i,ele in enumerate(corpus):
+        for word in ele[0]:
+            if word not in result.keys():
+                result[word] = i
+    return result
     
 
 # Converts a snippet into a feature vector
