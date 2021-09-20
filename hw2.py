@@ -107,10 +107,15 @@ def vectorize_corpus(corpus, feature_dict):
 # X is a Numpy array
 # No return value
 def normalize(X):
-    min_max_scaler = preprocessing.MinMaxScaler()
-    v_scaled = min_max_scaler.fit_transform(X)
-    return v_scaled
-
+    for columns in X:
+        minimum = min(columns)
+        maximum = max(columns)
+        for element in columns:
+            if (maximum - minimum) == 0:
+                element = 0
+            else:
+                element = (element - min)/(maximum - minimum)
+    return X
 
 # Trains a model on a training corpus
 # corpus_path is a string
