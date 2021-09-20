@@ -83,8 +83,8 @@ def tag_negation(snippet):
 # Returns a dictionary {word: index}
 def get_feature_dictionary(corpus):
     result = dict()
+    counter = 0
     for i,ele in enumerate(corpus):
-        counter = 0
         for word in ele[0]:
             if word not in result.keys():
                 result[word] = counter
