@@ -4,6 +4,8 @@ import sys
 import nltk
 import numpy as np
 from sklearn.linear_model import LogisticRegression
+from sklearn import preprocessing
+
 
 
 negation_words = set(['not', 'no', 'never', 'nor', 'cannot'])
@@ -105,7 +107,9 @@ def vectorize_corpus(corpus, feature_dict):
 # X is a Numpy array
 # No return value
 def normalize(X):
-    pass
+    min_max_scaler = preprocessing.MinMaxScaler()
+    v_scaled = min_max_scaler.fit_transform(X)
+    return v_scaled
 
 
 # Trains a model on a training corpus
