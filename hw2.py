@@ -21,6 +21,7 @@ def load_corpus(corpus_path):
     result = []
     for para in paragraph:
         if len(para) != 0:
+            para = para.strip()
             snippet = para.split(" ")
             temp = snippet[-1]
             snippet = snippet[:-1]
@@ -36,25 +37,17 @@ def load_corpus(corpus_path):
 
     return result
 
-    """
-    sentences = sent_tokenize(str(paragraph))
-    result = []
-    for sentence in sentences:
-        temp = sentence.split("\\t")
-        print(temp)
-        snippet = word_tokenize(temp[0])
-        #label = int(str(temp[1]))
-        print(temp[1])
-        #result.append(tuple(snippet,label))
-    print(result)
-    """
 
 
 # Checks whether or not a word is a negation word
 # word is a string
 # Returns a boolean
 def is_negation(word):
-    pass
+    if word in negation_words:
+        return True
+    if word.endswith("\-n't"):
+        return True
+    return False
 
 
 # Modifies a snippet to add negation tagging
