@@ -2,7 +2,7 @@ import re
 import sys
 
 import nltk
-import numpy
+import numpy as np
 from sklearn.linear_model import LogisticRegression
 
 
@@ -86,7 +86,11 @@ def get_feature_dictionary(corpus):
 # feature_dict is a dictionary {word: index}
 # Returns a Numpy array
 def vectorize_snippet(snippet, feature_dict):
-    pass
+    vector = np.zeros(len(feature_dict))
+    for words in snippet:
+        index = feature_dict[words]
+        vector[index] += 1
+    return vector
 
 
 # Trains a classification model (in-place)
