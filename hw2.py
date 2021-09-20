@@ -2,7 +2,6 @@ import re
 import sys
 
 import nltk
-from nltk.tokenize import sent_tokenize, word_tokenize
 import numpy
 from sklearn.linear_model import LogisticRegression
 
@@ -22,9 +21,9 @@ def load_corpus(corpus_path):
     result = []
     for para in paragraph:
         if len(para) != 0:
-            snippet = word_tokenize(para[:-1])
+            snippet = para[:-2].split(" ")
             label = int(para[-1])
-            print(label)
+            print(snippet)
             Sentiment_tuple = (snippet,label)
         result.append(Sentiment_tuple)
 
