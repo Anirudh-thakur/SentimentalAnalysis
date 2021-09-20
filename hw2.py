@@ -86,7 +86,7 @@ def get_feature_dictionary(corpus):
     for i,ele in enumerate(corpus):
         for word in ele[0]:
             if word not in result.keys():
-                result[word] = i
+                result[word] = 0
             else:
                 result[word] += 1
     return result
