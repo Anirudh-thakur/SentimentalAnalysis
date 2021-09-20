@@ -21,10 +21,14 @@ def load_corpus(corpus_path):
     result = []
     for para in paragraph:
         if len(para) != 0:
-            para = para.strip()
-            snippet = para.split(" ")
-            temp = snippet[-1]
-            snippet = snippet[:-1]
+            sentence = para.split(" ")
+            temp =  sentence[-1]
+            sentence = sentence[:-1]
+            snippet = []
+            for words in sentence:
+                words = words.strip()
+                if len(words) != 0:
+                    snippet.append(words)
             if "." in str(temp):
                 snippet.append('.')
             if "1" in str(temp):
@@ -54,7 +58,23 @@ def is_negation(word):
 # snippet is a list of strings
 # Returns a list of strings
 def tag_negation(snippet):
-    pass
+    TaggedWords = nltk.pos_tag(snippet)
+    result = []
+    negation_meta_tag = "NOT_"
+    negationFlag = 0
+    for i, words in enumerate(TaggedWords):
+        if negationFlag == 0:
+            result.append(words[0])
+        else:
+            result.append(negation_meta_tag+words[0])
+        if is_negation(words[0]):
+            if words[0] == "not" and i+1 <= len(TaggedWords)-1 and TaggedWords[i+1][0] == "only":
+                pass
+            else:
+                negationFlag = 1
+        if words[0] in negation_enders or words[0] in sentence_enders or words[1] == "JJR" or words[1] == "RBR":
+            negationFlag = 0
+    return result
 
 
 # Assigns to each unigram an index in the feature vector
