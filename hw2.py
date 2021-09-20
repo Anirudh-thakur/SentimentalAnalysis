@@ -89,6 +89,7 @@ def get_feature_dictionary(corpus):
             if word not in result.keys():
                 result[word] = counter
                 counter += 1
+            
     return result
     
 
