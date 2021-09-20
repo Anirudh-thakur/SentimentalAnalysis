@@ -21,24 +21,12 @@ def load_corpus(corpus_path):
     result = []
     for para in paragraph:
         if len(para) != 0:
-            sentence = para.split(" ")
-            temp =  sentence[-1]
-            sentence = sentence[:-1]
-            snippet = []
-            for words in sentence:
-                words = words.strip()
-                if len(words) != 0:
-                    snippet.append(words)
-            if "." in str(temp):
-                snippet.append('.')
-            if "1" in str(temp):
-                label = 1
-            else:
-                label = 0
-            print(snippet)
-            Sentiment_tuple = (snippet,label)
-        result.append(Sentiment_tuple)
-
+            temp = para.split("\t")
+            snippet = temp[0].split(" ")
+            label = int(temp[1])
+            sentiment = (snippet,label)
+            print(sentiment)
+            result.append(sentiment)
     return result
 
 
