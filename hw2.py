@@ -100,22 +100,38 @@ def vectorize_snippet(snippet, feature_dict):
 # feature_dict is a dictionary {word: label}
 # Returns a tuple (X, Y) where X and Y are Numpy arrays
 def vectorize_corpus(corpus, feature_dict):
-    pass
+    d = len(feature_dict.keys())
+    n = len(corpus)
+    X = numpy.zeros(shape=(n,d))
+    y = numpy.zeros(n)
+    for i,elements in enumerate(corpus):
+        snippets = elements[0]
+        label = elements[1]
+        X[i] = vectorize_snippet(snippet, feature_dict)
+        Y[i] = label
+    return (X,Y)
+
+
 
 
 # Performs min-max normalization (in-place)
 # X is a Numpy array
 # No return value
 def normalize(X):
-    for columns in X:
-        minimum = min(columns)
-        maximum = max(columns)
-        for element in columns:
-            if (maximum - minimum) == 0:
-                element = 0
-            else:
-                element = (element - min)/(maximum - minimum)
+    for i,vector in enumerate(X):
+        max = numpy.amax(vector)
+        min = numpy.amin(vector)
+        if max == min:
+           X[i] = numpy.zeros(n)
+        else:
+            for j,ele in vector:
+                X[i][j] = (ele-min)/(max-min)
     return X
+    
+
+
+
+
 
 # Trains a model on a training corpus
 # corpus_path is a string
