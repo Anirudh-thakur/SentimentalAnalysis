@@ -162,7 +162,7 @@ def evaluate_predictions(Y_pred, Y_test):
     fp = 0
     fn = 0
     for i,ele in Y_pred:
-        if Y_pred[i] == Y_test and Y_pred == 1:
+        if Y_pred[i] == Y_test[i] and Y_pred[i] == 1:
             tp += 1
         elif Y_test[i] == 0 and Y_pred[i] == 1:
             fp += 1
