@@ -102,14 +102,14 @@ def vectorize_snippet(snippet, feature_dict):
 def vectorize_corpus(corpus, feature_dict):
     d = len(feature_dict.keys())
     n = len(corpus)
-    X = numpy.zeros(shape=(n,d))
-    y = numpy.zeros(n)
-    for i,elements in enumerate(corpus):
+    X = np.zeros(shape=(n, d))
+    y = np.zeros(n)
+    for i, elements in enumerate(corpus):
         snippets = elements[0]
         label = elements[1]
-        X[i] = vectorize_snippet(snippet, feature_dict)
-        Y[i] = label
-    return (X,Y)
+        X[i] = vectorize_snippet(snippets, feature_dict)
+        y[i] = label
+    return (X, y)
 
 
 
@@ -118,15 +118,16 @@ def vectorize_corpus(corpus, feature_dict):
 # X is a Numpy array
 # No return value
 def normalize(X):
-    for i,vector in enumerate(X):
-        max = numpy.amax(vector)
-        min = numpy.amin(vector)
-        if max == min:
-           X[i] = numpy.zeros(n)
+    newX = np.zeros(shape=(len(X), len(X[0])))
+    for i, features in enumerate(X):
+        maximum = np.amax(features)
+        minimum = np.amin(features)
+        if maximum == minimum:
+            return newX
         else:
-            for j,ele in vector:
-                X[i][j] = (ele-min)/(max-min)
-    return X
+            for j, ele in enumerate(features):
+                newX[i][j] = (X[i][j] - minimum)/(maximum-minimum)
+    return newX
     
 
 
