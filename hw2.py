@@ -123,7 +123,7 @@ def normalize(X):
         maximum = np.amax(features)
         minimum = np.amin(features)
         if maximum == minimum:
-            return newX
+            return np.ones(shape=(len(X), len(X[0])))
         else:
             for j, ele in enumerate(features):
                 newX[i][j] = (X[i][j] - minimum)/(maximum-minimum)
