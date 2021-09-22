@@ -27,7 +27,6 @@ def load_corpus(corpus_path):
             snippet = temp[0].split(" ")
             label = int(temp[1])
             sentiment = (snippet,label)
-            print(sentiment)
             result.append(sentiment)
     return result
 
@@ -138,7 +137,20 @@ def normalize(X):
 # corpus_path is a string
 # Returns a LogisticRegression
 def train(corpus_path):
-    load_corpus(corpus_path)
+    corpus = load_corpus(corpus_path)
+    negCorpus = []
+    for value in corpus:
+        snippet = value[0]
+        label = value[1]
+        negationSnippet = tag_negation(snippet)
+        negCorpus.append((negationSnippet,label))
+        feature_dictionary = get_feature_dictionary(negCorpus)
+        feature_vector = vectorize_corpus(negCorpus,feature_dictionary)
+        normaliseFeature = normalize(feature_vector[0])
+        normalize_featureVector = (normaliseFeature,feature_vector[1])
+        model = LogisticRegression(normalize_featureVector[0],normalize_featureVector[1])
+        return (model,feature_dictionary)
+
 
 
 # Calculate precision, recall, and F-measure
