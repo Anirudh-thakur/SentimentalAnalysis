@@ -144,12 +144,12 @@ def train(corpus_path):
         label = value[1]
         negationSnippet = tag_negation(snippet)
         negCorpus.append((negationSnippet,label))
-        feature_dictionary = get_feature_dictionary(negCorpus)
-        feature_vector = vectorize_corpus(negCorpus,feature_dictionary)
-        normaliseFeature = normalize(feature_vector[0])
-        normalize_featureVector = (normaliseFeature,feature_vector[1])
-        model = LogisticRegression(normalize_featureVector[0],normalize_featureVector[1])
-        return (model,feature_dictionary)
+    feature_dictionary = get_feature_dictionary(negCorpus)
+    feature_vector = vectorize_corpus(negCorpus,feature_dictionary)
+    normaliseFeature = normalize(feature_vector[0])
+    normalize_featureVector = (normaliseFeature,feature_vector[1])
+    model = LogisticRegression(normalize_featureVector[0],normalize_featureVector[1])
+    return (model,feature_dictionary)
 
 
 
@@ -158,7 +158,22 @@ def train(corpus_path):
 # Y_test is a Numpy array
 # Returns a tuple of floats
 def evaluate_predictions(Y_pred, Y_test):
-    pass
+    tp = 0
+    fp = 0
+    fn = 0
+    for i,ele in Y_pred:
+        if Y_pred[i] == Y_test and Y_pred == 1:
+            tp += 1
+        elif Y_test[i] == 0 and Y_pred[i] == 1:
+            fp += 1
+        elif Y_test[i] == 1 and Y_pred[i] == 0:
+            fn += 1
+        else:
+            pass
+        precision = tp/(tp+fp)
+        recall = tp/(tp+fn)
+        fmeasure = 2 * ((precision*recall)/(precision+recall))
+        return (precision,recall,fmeasure)
 
 
 # Evaluates a model on a test corpus and prints the results
