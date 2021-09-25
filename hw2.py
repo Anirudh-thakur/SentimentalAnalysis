@@ -89,7 +89,8 @@ def get_feature_dictionary(corpus):
 def vectorize_snippet(snippet, feature_dict):
     vector = np.zeros(len(feature_dict))
     for words in snippet:
-        index = feature_dict[words]
+        if words in feature_dict.keys():
+            index = feature_dict[words]
         vector[index] += 1
     return vector
 
