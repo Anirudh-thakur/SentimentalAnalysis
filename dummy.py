@@ -19,7 +19,7 @@ def vectorize_corpus(corpus, feature_dict):
     return (X,y)
 X = vectorize_corpus([(['I','am','Anirudh'],0),(['I','am','Shubham'],0)],{'I':2,'am':2,'Anirudh':1,'Shubham':1})
 X = X[0]
-print(X)
+#print(X)
 
 
 def normalize(X):
@@ -38,5 +38,27 @@ def normalize(X):
                 #print(X[i][j])
     return newX
 
-print(normalize(X))
-print(normalize(np.ones(shape=(3, 4))))
+#print(normalize(X))
+#print(normalize(np.ones(shape=(3, 4))))
+
+
+def evaluate_predictions(Y_pred, Y_test):
+    tp = 0
+    fp = 0
+    fn = 0
+    for i in range(len(Y_test)):
+        if Y_pred[i] == Y_test[i] and Y_pred[i] == 1:
+            tp += 1
+        elif Y_test[i] == 0 and Y_pred[i] == 1:
+            fp += 1
+        elif Y_test[i] == 1 and Y_pred[i] == 0:
+            fn += 1
+        else:
+            pass
+        precision = tp/(tp+fp)
+        recall = tp/(tp+fn)
+        fmeasure = 2 * ((precision*recall)/(precision+recall))
+        return (precision, recall, fmeasure)
+
+
+print(evaluate_predictions(np.ones(10), np.ones(10)))

@@ -132,10 +132,6 @@ def normalize(X):
                 #print(X[i][j])
     return newX
 
-    
-
-
-
 
 
 # Trains a model on a training corpus
@@ -162,11 +158,12 @@ def train(corpus_path):
 # Y_pred is a Numpy array
 # Y_test is a Numpy array
 # Returns a tuple of floats
+
 def evaluate_predictions(Y_pred, Y_test):
     tp = 0
     fp = 0
     fn = 0
-    for i,ele in Y_pred:
+    for i in range(len(Y_test)):
         if Y_pred[i] == Y_test[i] and Y_pred[i] == 1:
             tp += 1
         elif Y_test[i] == 0 and Y_pred[i] == 1:
@@ -178,7 +175,7 @@ def evaluate_predictions(Y_pred, Y_test):
         precision = tp/(tp+fp)
         recall = tp/(tp+fn)
         fmeasure = 2 * ((precision*recall)/(precision+recall))
-        return (precision,recall,fmeasure,)
+        return (precision, recall, fmeasure)
 
 
 # Evaluates a model on a test corpus and prints the results
