@@ -164,11 +164,11 @@ def evaluate_predictions(Y_pred, Y_test):
     fp = 0
     fn = 0
     for i in range(len(Y_test)):
-        if Y_pred[i] == Y_test[i] and Y_pred[i] == 1:
+        if Y_pred[i] == 1 and Y_test[i] == 1:
             tp += 1
-        elif Y_test[i] == 0 and Y_pred[i] == 1:
+        elif Y_pred[i] == 0 and Y_test[i] == 1:
             fp += 1
-        elif Y_test[i] == 1 and Y_pred[i] == 0:
+        elif Y_pred[i] == 1 and Y_test[i] == 0:
             fn += 1
         else:
             pass
