@@ -183,7 +183,18 @@ def evaluate_predictions(Y_pred, Y_test):
 # corpus_path is a string
 # Returns a tuple of floats
 def test(model, feature_dict, corpus_path):
-    load_corpus(test)
+    corpus = load_corpus(test)
+    negation_tagged_corpus = []
+    for ele in corpus_path:
+        negation_snippet = tag_negation(ele[0])
+        temp = (negation_snippet,ele[1])
+        negation_tagged_corpus.append(temp)
+    vectorized_corpus = vectorize_corpus(negation_tagged_corpus,feature_dict)
+    X = normalize(vectorize_corpus[0])
+    Y_test = vectorize_corpus[1]
+    Y_pred = model.predict(X)
+    result = evaluate_predictions(Y_pred, Y_test)
+    return result
 
 
 # Selects the top k highest-weight features of a logistic regression model
