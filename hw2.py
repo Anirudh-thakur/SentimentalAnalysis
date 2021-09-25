@@ -121,12 +121,17 @@ def normalize(X):
     for i, features in enumerate(X):
         maximum = np.amax(features)
         minimum = np.amin(features)
+        #print("Maximum:{}".format(maximum))
+        #print("Minimum:{}".format(minimum))
         if maximum == minimum:
-            return np.ones(shape=(len(X), len(X[0])))
+            continue
         else:
             for j, ele in enumerate(features):
-                newX[i][j] = (X[i][j] - minimum)/(maximum-minimum)
+                newX[i][j] = abs((X[i][j] - minimum))/abs((maximum-minimum))
+                #print(newX[i][j])
+                #print(X[i][j])
     return newX
+
     
 
 
@@ -173,7 +178,7 @@ def evaluate_predictions(Y_pred, Y_test):
         precision = tp/(tp+fp)
         recall = tp/(tp+fn)
         fmeasure = 2 * ((precision*recall)/(precision+recall))
-        return (precision,recall,fmeasure)
+        return (precision,recall,fmeasure,)
 
 
 # Evaluates a model on a test corpus and prints the results

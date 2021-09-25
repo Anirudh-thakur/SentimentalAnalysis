@@ -20,17 +20,23 @@ def vectorize_corpus(corpus, feature_dict):
 X = vectorize_corpus([(['I','am','Anirudh'],0),(['I','am','Shubham'],0)],{'I':2,'am':2,'Anirudh':1,'Shubham':1})
 X = X[0]
 print(X)
+
+
 def normalize(X):
-    newX = np.zeros(shape=(len(X),len(X[0])))
-    for i,features in enumerate(X):
+    newX = np.zeros(shape=(len(X), len(X[0])))
+    for i, features in enumerate(X):
         maximum = np.amax(features)
         minimum = np.amin(features)
+        #print("Maximum:{}".format(maximum))
+        #print("Minimum:{}".format(minimum))
         if maximum == minimum:
-            return newX
+            continue
         else:
-            for j,ele in enumerate(features):
-                newX[i][j] = (X[i][j] - minimum)/(maximum-minimum)
+            for j, ele in enumerate(features):
+                newX[i][j] = abs((X[i][j] - minimum))/abs((maximum-minimum))
+                #print(newX[i][j])
+                #print(X[i][j])
     return newX
 
-
 print(normalize(X))
+print(normalize(np.ones(shape=(3, 4))))
