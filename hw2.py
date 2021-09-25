@@ -185,7 +185,7 @@ def evaluate_predictions(Y_pred, Y_test):
 def test(model, feature_dict, corpus_path):
     corpus = load_corpus(test)
     negation_tagged_corpus = []
-    for ele in corpus_path:
+    for ele in corpus:
         negation_snippet = tag_negation(ele[0])
         temp = (negation_snippet,ele[1])
         negation_tagged_corpus.append(temp)
