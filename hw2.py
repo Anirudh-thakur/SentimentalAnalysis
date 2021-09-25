@@ -190,8 +190,8 @@ def test(model, feature_dict, corpus_path):
         temp = (negation_snippet,ele[1])
         negation_tagged_corpus.append(temp)
     vectorized_corpus = vectorize_corpus(negation_tagged_corpus,feature_dict)
-    X = normalize(vectorize_corpus[0])
-    Y_test = vectorize_corpus[1]
+    X = normalize(vectorized_corpus[0])
+    Y_test = vectorized_corpus[1]
     Y_pred = model.predict(X)
     result = evaluate_predictions(Y_pred, Y_test)
     return result
