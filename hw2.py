@@ -166,16 +166,16 @@ def evaluate_predictions(Y_pred, Y_test):
     for i in range(len(Y_test)):
         if Y_pred[i] == 1 and Y_test[i] == 1:
             tp += 1
-        elif Y_pred[i] == 0 and Y_test[i] == 1:
+        elif Y_test[i] == 0 and Y_pred[i] == 1:
             fp += 1
-        elif Y_pred[i] == 1 and Y_test[i] == 0:
+        elif Y_test[i] == 1 and Y_pred[i] == 0:
             fn += 1
         else:
             pass
-        precision = tp/(tp+fp)
-        recall = tp/(tp+fn)
-        fmeasure = 2 * ((precision*recall)/(precision+recall))
-        return (precision, recall, fmeasure)
+    precision = tp/(tp+fp)
+    recall = tp/(tp+fn)
+    fmeasure = 2 * ((precision*recall)/(precision+recall))
+    return (precision, recall, fmeasure)
 
 
 # Evaluates a model on a test corpus and prints the results

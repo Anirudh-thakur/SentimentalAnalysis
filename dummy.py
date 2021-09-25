@@ -55,10 +55,10 @@ def evaluate_predictions(Y_pred, Y_test):
             fn += 1
         else:
             pass
-        precision = tp/(tp+fp)
-        recall = tp/(tp+fn)
-        fmeasure = 2 * ((precision*recall)/(precision+recall))
-        return (precision, recall, fmeasure)
+    precision = tp/(tp+fp)
+    recall = tp/(tp+fn)
+    fmeasure = 2 * ((precision*recall)/(precision+recall))
+    return (precision, recall, fmeasure)
 
 
 print(evaluate_predictions(np.ones(10), np.ones(10)))
