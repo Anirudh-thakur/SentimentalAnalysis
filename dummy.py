@@ -23,16 +23,14 @@ X = X[0]
 
 
 def normalize(X):
+    minimum = np.amin(X, axis=0)
+    maximum = np.amax(X, axis=0)
     for i, features in enumerate(X):
-        maximum = np.amax(features)
-        minimum = np.amin(features)
-        #print("Maximum:{}".format(maximum))
-        #print("Minimum:{}".format(minimum))
         for j, ele in enumerate(features):
-            if minimum == maximum:
+            if minimum[j] == maximum[j]:
                 X[i][j] = 0
             else:
-                X[i][j] = abs((X[i][j] - minimum))/abs((maximum-minimum))
+                X[i][j] = abs((X[i][j] - minimum[j]))/abs((maximum[j]-minimum[j]))
             #print(newX[i][j])
             #print(X[i][j])
     return X
