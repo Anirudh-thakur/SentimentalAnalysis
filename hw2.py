@@ -91,7 +91,7 @@ def vectorize_snippet(snippet, feature_dict):
     for words in snippet:
         if words in feature_dict.keys():
             index = feature_dict[words]
-        vector[index] += 1
+            vector[index] += 1
     return vector
 
 
@@ -150,7 +150,8 @@ def train(corpus_path):
     feature_vector = vectorize_corpus(negCorpus,feature_dictionary)
     normaliseFeature = normalize(feature_vector[0])
     normalize_featureVector = (normaliseFeature,feature_vector[1])
-    model = LogisticRegression(normalize_featureVector[0],normalize_featureVector[1])
+    model = LogisticRegression()
+    model.fit(normalize_featureVector[0],normalize_featureVector[1])
     return (model,feature_dictionary)
 
 
@@ -211,9 +212,9 @@ def main(args):
 
     print(test(model, feature_dict, 'test.txt'))
 
-    weights = get_top_features(model, feature_dict)
-    for weight in weights:
-        print(weight)
+   # weights = get_top_features(model, feature_dict)
+   # for weight in weights:
+   #     print(weight)
     
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
