@@ -171,9 +171,18 @@ def evaluate_predictions(Y_pred, Y_test):
             fn += 1
         else:
             pass
-    precision = tp/(tp+fp)
-    recall = tp/(tp+fn)
-    fmeasure = 2 * ((precision*recall)/(precision+recall))
+    if tp+fp == 0:
+        precision = float('inf')
+    else:
+        precision = tp/(tp+fp)
+    if tp+fn == 0:
+        recall = float('inf')
+    else:
+        recall = tp/(tp+fn)
+    if precision + recall == 0:
+        fmeasure = float('inf')
+    else:
+        fmeasure = 2 * ((precision*recall)/(precision+recall))
     return (precision, recall, fmeasure)
 
 
