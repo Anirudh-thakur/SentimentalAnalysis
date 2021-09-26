@@ -204,7 +204,26 @@ def test(model, feature_dict, corpus_path):
 # feature_dict is a dictionary {word: index}
 # k is an int
 def get_top_features(logreg_model, feature_dict, k=1):
-    pass
+    X = logreg_model.coef_[0]
+    weight_list = []
+    for i in range(len(X)):
+        temp = (i,X[i])
+        weight_list.append(temp)
+    weight_list.sort(key= lambda X:abs(X[1]) , reverse=True)
+    weights = []
+    count = 1
+    for weight in weight_list:
+        if count > k:
+            break;
+        for key in feature_dict.keys():
+            if feature_dict[key] == weight[0]:
+                temp = (key,weight[1])
+                weights.append(temp)
+                count += 1
+    return weights
+
+
+
 
 
 def main(args):
@@ -212,9 +231,9 @@ def main(args):
 
     print(test(model, feature_dict, 'test.txt'))
 
-   # weights = get_top_features(model, feature_dict)
-   # for weight in weights:
-   #     print(weight)
+    weights = get_top_features(model, feature_dict)
+    for weight in weights:
+        print(weight)
     
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
