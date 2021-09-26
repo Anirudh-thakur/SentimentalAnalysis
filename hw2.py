@@ -118,20 +118,19 @@ def vectorize_corpus(corpus, feature_dict):
 # X is a Numpy array
 # No return value
 def normalize(X):
-    newX = np.zeros(shape=(len(X), len(X[0])))
     for i, features in enumerate(X):
         maximum = np.amax(features)
         minimum = np.amin(features)
         #print("Maximum:{}".format(maximum))
         #print("Minimum:{}".format(minimum))
-        if maximum == minimum:
-            continue
-        else:
-            for j, ele in enumerate(features):
-                newX[i][j] = abs((X[i][j] - minimum))/abs((maximum-minimum))
-                #print(newX[i][j])
-                #print(X[i][j])
-    return newX
+        for j, ele in enumerate(features):
+            if minimum == maximum:
+                X[i][j] = 0
+            else:
+                X[i][j] = abs((X[i][j] - minimum))/abs((maximum-minimum))
+            #print(newX[i][j])
+            #print(X[i][j])
+    return X
 
 
 
